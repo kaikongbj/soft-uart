@@ -26,6 +26,7 @@ __IO uint8_t SU_Timer = 0;
 
 // Parity var
 static uint8_t DV, PCount;
+extern pb_rte rte_data;
 
 // Read RX single Pin Value
 GPIO_PinState SoftUartGpioReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin) {
