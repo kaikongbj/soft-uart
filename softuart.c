@@ -14,7 +14,7 @@
 #define SoftUart_IDEF_LEN_C1 (SoftUart_DATA_LEN + 1)
 #endif
 #define SoftUart_IDEF_LEN_C2 (SoftUart_IDEF_LEN_C1 + SoftUart_STOP_Bit)
-
+extern pb_rte rte_data;
 // All Soft Uart Config and State
 SoftUart_S SUart[Number_Of_SoftUarts];
 
@@ -216,7 +216,7 @@ void SoftUartRxDataBitProcess(SoftUart_S *SU, uint8_t B0_1) {
                 // Change RX Buffer Index
                 if ((SU->RxIndex) < (SoftUartRxBufferSize - 1))
                     (SU->RxIndex)++;
-                uint64_t t = current_time_us;
+                uint64_t t = rte_data.tick_us;
                 // if (t - SU->data->data.rx_time > SU->data->data.rx_timeout) {
                 switch (SU->data->data.state) {
                     case pb_state_serial_ready:
