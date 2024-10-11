@@ -43,6 +43,8 @@ typedef struct {
     uint8_t RxTimingFlag;
     uint8_t RxBitOffset;
     tye_uart *data;
+    rte_proto_pb_state state;
+    uint64_t rx_time;
 } SoftUart_S;
 #ifdef __cplusplus
 extern "C" {

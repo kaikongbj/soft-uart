@@ -14,7 +14,7 @@
 #define SoftUart_IDEF_LEN_C1 (SoftUart_DATA_LEN + 1)
 #endif
 #define SoftUart_IDEF_LEN_C2 (SoftUart_IDEF_LEN_C1 + SoftUart_STOP_Bit)
-extern pb_rte rte_data;
+extern rte_proto_pb_rte rte_data;
 // All Soft Uart Config and State
 SoftUart_S SUart[Number_Of_SoftUarts];
 
@@ -26,7 +26,7 @@ __IO uint8_t SU_Timer = 0;
 
 // Parity var
 static uint8_t DV, PCount;
-extern pb_rte rte_data;
+extern rte_proto_pb_rte rte_data;
 
 // Read RX single Pin Value
 GPIO_PinState SoftUartGpioReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin) {
@@ -219,9 +219,9 @@ void SoftUartRxDataBitProcess(SoftUart_S *SU, uint8_t B0_1) {
                     (SU->RxIndex)++;
                 uint64_t t = rte_data.tick_us;
                 // if (t - SU->data->data.rx_time > SU->data->data.rx_timeout) {
-                switch (SU->data->data.state) {
-                    case pb_state_serial_ready:
-                        SU->data->data.state = pb_state_serial_frame_recving;
+                switch (SU->state) {
+                    case rte_proto_pb_state_serial_ready:
+                        SU->state = rte_proto_pb_state_serial_frame_rec_ing;
                         break;
                         //         case pb_state_serial_frame_recving:
                         //             SU->data->data.state = pb_state_serial_frame_recvend;
@@ -229,7 +229,7 @@ void SoftUartRxDataBitProcess(SoftUart_S *SU, uint8_t B0_1) {
                         //             break;
                 }
                 // }
-                SU->data->data.rx_time = t;
+                SU->rx_time = t;
             }
             // if not : ERROR -> Overwrite data
         }
